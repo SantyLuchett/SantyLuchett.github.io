@@ -89,7 +89,10 @@ section h3 {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
     
 }
-  
+#video-section {
+	display: flex;
+	justify-content: center;
+  }
 
 /* Estilos para la galería de fotos */
 
