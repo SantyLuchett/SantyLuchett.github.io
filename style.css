@@ -161,3 +161,20 @@ body {
   background-size: contain;
   background-position: center;
 }
+
+.back-to-top {
+	display: inline-block;
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+	text-decoration: none;
+  }
+  
+  .back-to-top:hover {
+	background-color: #555;
+  }
