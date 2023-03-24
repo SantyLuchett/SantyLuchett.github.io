@@ -1,0 +1,12 @@
+{
+  "messages": [
+    {
+      "nombre": "Juan",
+      "mensaje": "¡Feliz cumpleaños Santiago!"
+    },
+    {
+      "nombre": "María",
+      "mensaje": "!Que tengas un excelente día!"
+    }
+  ]
+}
