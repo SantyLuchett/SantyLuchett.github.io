@@ -48,18 +48,22 @@ section {
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  
 }
 
 section h2 {
   font-size: 30px;
   margin-bottom: 10px;
   text-align: center;
+  font-family: 'Verdana', sans-serif;
 }
 
 section h3 {
-  font-size: 19px;
-  line-height: 1.6;
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 20px;
+  color: white;
+  -webkit-text-stroke: 0.8px black;
 }
 
 #mensaje-cumpleanos {
@@ -157,7 +161,7 @@ footer {
 }
 
 body {
-  background-image: url("40322.jpg");
+  background-image: url("4777.jpg");
   background-size: contain;
   background-position: center;
 }
