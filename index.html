@@ -1,181 +1,85 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Feliz cumpleaños Santiago</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <a name="top"></a>
-    <header>
-      <h1>Feliz cumpleaños Santiago</h1>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <title>¿Quieres casarte conmigo?</title>
+</head>
+<body>
+  <!-- Pantalla de bienvenida -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <h1>Antes de comenzar, escribe tu primer nombre</h1>
+    <input type="text" class="name-input" id="nameInput" placeholder="Escribe tu nombre aquí">
+    <button class="submit-btn" id="submitBtn">Continuar</button>
+</div>
 
-      <nav>
-        <ul>
-          <li><a href="#sobre-santiago">Sobre Santiago</a></li>
-          <li><a href="#gallery">Galería de fotos</a></li>
-          <li><a href="#mensaje-cumpleanos">Mensaje de cumpleaños</a></li>
-          <li><a href="#mensajes">Mensajes de amigos y familiares</a></li>
-          <li><a href="#juegos">Juegos y actividades</a></li>
-        </ul>
-      </nav>
+<!-- Contenido principal -->
+<div class="container" id="mainContent">
+    <!-- Header -->
+    <header>
+        <div class="hearts" id="heartsContainer"></div>
+        <h2>Mi razón de ser</h2>
     </header>
 
-    <main>
-      <section id="video-section">
-        <h2>Dale al play</h2>
-        <video
-          src="video2.mp4"
-          width="380"
-          height="240"
-          controls
-          autoplay
-        ></video>
-      </section>
-      <section id="mensaje-cumpleanos">
-        <h2>Mensaje de cumpleaños</h2>
-        <h3>
-          ¡¡¡Feliz cumpleaños, mi querido hijo!!! Hoy cumples 9 años y no puedo
-          evitar sentirme un poco triste de no poder estar a tu lado para
-          celebrar este día especial. Hace más de un año que te fuiste a España
-          con tu mamá y te extraño muchísimo. Los momentos que pasamos juntos
-          aquí en Colombia son inolvidables y siempre estarán en mi corazón.
-          Eres mi único hijo y te amo más de lo que puedes imaginar.
-        </h3>
+    <!-- Sección de propuesta -->
+    <section class="proposal-section">
+        <p class="proposal-text">
+            Desde el momento en que te conocí, supe que mi vida nunca sería la misma.<br>
+            Cada día a tu lado es un regalo que atesoro con todo mi corazón.<br>
+            <span class="name-display" id="nameDisplay">Amor</span>, no puedo imaginar mi futuro sin ti.<br>
+            Por eso hoy, con todo el amor que llevo dentro, te pregunto:
+        </p>
+    </section>
 
-        <h3>
-          Aunque estemos lejos el uno del otro, quiero que sepas que siempre
-          estaré luchando para volver a estar juntos y abrazarte pronto. No
-          quiero que me olvides nunca, siempre te amaré. También sé que tu mamá
-          te quiere mucho y te cuida muy bien.
-        </h3>
-
-        <h3>
-          Deseo de todo corazón que estés muy feliz en tu cumpleaños y que Dios
-          te cuide siempre. Te mando un abrazo muy fuerte y muchos besos. ¡¡Feliz
-          cumpleaños, mi rey hermoso!!
-      </section>
-      <section id="sobre-santiago">
-        <h2>Sobre Santiago</h2>
-        <h3>
-          Permítanme presentarles a mi hijo Santiago. Él es una persona muy
-          inteligente, amorosa, alegre, hermoso y se expresa muy bien. Se destaca en los estudios
-          y siempre está buscando aprender cosas nuevas. Además, le encanta
-          correr, los carros, el futbol y los dinosaurios. Es un chico hermoso con una
-          sonrisa que ilumina la habitación.
-        </h3>
-        <h3>
-          Le gusta mucho la pizza, las hamburguesas, las patatas y ultimamente la comida de mar, siempre está dispuesto a probar nuevas
-          combinaciones de ingredientes. Aunque a veces puede ser un poco
-          cascarrabias, es un niño muy dulce y cariñoso. Siempre está
-          defendiendo a su mamá y es muy protector con ella.
-        </h3>
-        <h3>
-          En resumen, Santiago es un niño maravilloso con una personalidad única
-          y un gran corazón. Cada día me sorprende con su inteligencia y
-          creatividad. Estoy muy orgulloso de ser su padre y estoy emocionado
-          por ver todo lo que logrará en el futuro.
-        </h3>
-      </section>
-      <section id="mensaje-mama">
-        <h2>Mensaje para mamá</h2>
-        <h3>
-          Dichosa mamá de Santy, quiero que sepas que eres una persona muy
-          valiente y admirable. Haces hasta lo imposible para sacar adelante a
-          nuestro hijo y eso es algo que admiro muchísimo de ti. Él tiene la
-          mejor mamá del mundo, alguien que lo cuida muy bien y está siempre a
-          su lado para apoyarlo.
-        </h3>
-        <h3>
-          Tu dedicación y amor incondicional hacia Santiago son verdaderamente
-          impresionantes. Sabes lo que es mejor para él y siempre haces lo
-          posible para asegurarte de que tenga todo lo que necesita para crecer
-          y desarrollarse de la mejor manera posible.
-        </h3>
-        <h3>
-          Es importante reconocer todo lo que haces por Santy y el gran impacto
-          que tienes en su vida. Eres una verdadera guerrera, una madre fuerte y
-          valiente que no deja que nada la detenga. Santiago es afortunado de
-          tenerte como su mamá y tú eres una inspiración para muchos.
-        </h3>
-        <h3>
-          Gracias por ser una madre tan dedicada y amorosa. Santy tiene un
-          modelo a seguir en ti y estoy seguro de que siempre estará agradecido
-          por todo lo que haces por él. ¡Eres una verdadera heroína!
-        </h3>
-      </section>
-       <a href="#top" class="back-to-top">Volver al inicio</a>
-      <section>
-        <h2>Galeria fotos de Santiago</h2>
-      </section>
-      <section id="gallery">
-        <img src="img1.jpeg" alt="Imagen1" />
-        <img src="img2.jpeg" alt="Imagen2" />
-        <img src="img3.jpeg" alt="Imagen3" />
-        <img src="img4.jpeg" alt="Imagen4" />
-        <img src="img5.jpeg" alt="Imagen5" />
-        <img src="img6.jpeg" alt="Imagen6" />
-        <img src="img7.jpeg" alt="Imagen7" />
-        <img src="img8.jpeg" alt="Imagen8" />
-        <img src="img12.jpeg" alt="Imagen12" />
-        <img src="img10.jpeg" alt="Imagen10" />
-        <img src="img13.jpeg" alt="Imagen13" />
-        <img src="img11.jpeg" alt="Imagen11" />
-        <img src="img14.jpeg" alt="Imagen14" />
-        <img src="img15.jpeg" alt="Imagen15" />
-        <img src="img28.jpeg" alt="Imagen28" />
-        <img src="img16.jpeg" alt="Imagen16" />
-        <img src="img17.jpeg" alt="Imagen17" />
-        <img src="img18.jpeg" alt="Imagen18" />
-        <img src="img19.jpeg" alt="Imagen19" />
-        <img src="img20.jpeg" alt="Imagen20" />
-        <img src="img21.jpeg" alt="Imagen21" />
-        <img src="img22.jpeg" alt="Imagen22" />
-        <img src="img23.jpeg" alt="Imagen23" />
-        <img src="img24.jpeg" alt="Imagen24" />
-        <img src="img25.jpeg" alt="Imagen25" />
-        <img src="img27.jpeg" alt="Imagen27" />
-        <img src="img29.jpeg" alt="Imagen29" />
-        <img src="img30.jpeg" alt="Imagen30" />
-        <img src="img31.jpeg" alt="Imagen31" />
-        <img src="img32.jpeg" alt="Imagen32" />
-        <img src="img33.jpeg" alt="Imagen33" />
-        <img src="img34.jpeg" alt="Imagen34" />
-      </section>
-
-      <section id="mensajes">
-        <h2>Mensajes de amigos y familiares</h2>
-
-        <section id="mensages"></section>
-
-        <div class="form-section">
-          <h2>Deja tu mensaje en el grupo</h2>
-          <button onclick="window.location.href='https://chat.whatsapp.com/G0CTYN2iuGr3zUzZEQUnco'" class="btn btn-primary">Unirse al grupo de Whatsapp</button>
+    <!-- Galería de fotos -->
+    <section class="gallery-section">
+        <h3 class="gallery-title">Nuestros momentos</h3>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="imagen1.jpg" alt="Nosotros1" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen2.jpg" alt="Nosotros1" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="Imagen3.jpg" alt="Nosotros1" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="imagen4.jpg" alt="Nosotros1" class="gallery-img">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Pareja mirándose" class="gallery-img">
+            </div>
         </div>
-        
-      </section>
+    </section>
 
-      <section id="juegos">
-        <h2>Juegos y actividades</h2>
-        <!-- Agrega aquí los juegos y actividades -->
-      </section>
-    </main>
+    <!-- Sección final -->
+    <section class="final-section">
+        <p class="proposal-text">
+            Quiero pasar cada amanecer a tu lado, compartir cada sueño,<br>
+            celebrar cada logro y apoyarte en cada desafío.<br>
+            Quiero construir una vida juntos, llena de amor y felicidad.
+        </p>
+        <button class="proposal-button" id="proposalButton">¿Quieres casarte conmigo?</button>
+    </section>
 
+    <!-- Footer -->
     <footer>
-      <p href="" title="contador de visitas blogger"><img src="https://counter2.optistats.ovh/private/contadorvisitasgratis.php?c=t6plttth6j3zrgc3ljfh6tb7pn2xxwe2" border="0" title="contador de visitas blogger" alt="contador de visitas blogger"></p>
-      <p>Derechos reservados Cumpleaños de Santy&copy; 2023</p>
-
-      <script src="./confetti.js"></script>
-      <script>
-        const start = () => {
-          setTimeout(function () {
-            confetti.start();
-          });
-        };
-        start();
-      </script>
+        <p>Hecho con ❤️ para el amor de mi vida</p>
     </footer>
-    <script src="cumple.js"></script>
-    
-  </body>
+</div>
+
+<!-- Control de música -->
+<div class="music-control" id="musicControl">
+    <span class="music-icon">♪</span>
+</div>
+
+<!-- Audio -->
+<audio id="backgroundMusic" loop>
+    <source src="casate_conmigo.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+</audio>
+<script src="script.js"></script>
+</body>
 </html>
