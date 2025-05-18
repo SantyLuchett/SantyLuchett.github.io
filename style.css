@@ -7,6 +7,7 @@
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
   background-color: #fff5f5;
   color: #333;
   overflow-x: hidden;
@@ -50,22 +51,24 @@ body {
 }
 
 .submit-btn {
-  margin-top: 20px;
-  padding: 12px 30px;
-  background-color: white;
-  color: #ff6b81;
+  padding: 20px 50px;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #ff6b81, #d23669);
+  color: white;
   border: none;
   border-radius: 50px;
-  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(210, 54, 105, 0.4);
+  margin-top: 30px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .submit-btn:hover {
   background-color: #ff6b81;
   color: white;
   transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(210, 54, 105, 0.6);
 }
 
 /* Contenido principal */
