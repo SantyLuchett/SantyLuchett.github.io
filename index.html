@@ -1,55 +1,549 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
+    <title>¡Feliz Cumpleaños Santiago!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           VARIABLES Y ESTILOS GLOBALES
+        ========================================= */
+        :root {
+            --mc-green: #5b8731;
+            --mc-grass-top: #71b13b;
+            --mc-dirt: #866043;
+            --mc-stone: #7d7d7d;
+            --mc-border: #383838;
+            --mc-xp: #a3f415;
+            --text-light: #ffffff;
+            --text-dark: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: url('https://cur.cursors-4u.net/games/gam-13/gam1282.cur'), auto; /* Cursor estilo cruz de Minecraft */
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #87CEEB; /* Color cielo */
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Tipografía para textos largos (más legible pero estilo pixel) */
+        .text-pixel-soft {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        h1, h2, h3 {
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           FONDO ANIMADO Y NUBES
+        ========================================= */
+        .sky-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: #87CEEB;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                -20px 20px 0 rgba(255,255,255,0.8),
+                20px 20px 0 rgba(255,255,255,0.8),
+                0 40px 0 rgba(255,255,255,0.8);
+            width: 60px; height: 20px;
+            animation: moveClouds linear infinite;
+        }
+
+        .cloud1 { top: 10%; left: -100px; animation-duration: 40s; }
+        .cloud2 { top: 30%; left: -200px; animation-duration: 55s; transform: scale(1.5); }
+        .cloud3 { top: 50%; left: -150px; animation-duration: 45s; transform: scale(0.8); }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(-150px); }
+            100% { transform: translateX(110vw); }
+        }
+
+        /* =========================================
+           PANTALLA DE INICIO (HERO)
+        ========================================= */
+        #start-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #87CEEB 60%, var(--mc-grass-top) 60%, var(--mc-dirt) 65%);
+            z-index: 100;
+            transition: opacity 1s ease, transform 1s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .title-anim {
+            font-size: 3rem;
+            color: #FFD700;
+            animation: zoomGlow 2s infinite alternate;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .subtitle-anim {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            animation: fadeIn 3s ease-in;
+        }
+
+        @keyframes zoomGlow {
+            0% { transform: scale(1); text-shadow: 0 0 10px #FFD700, 4px 4px 0px #000; }
+            100% { transform: scale(1.05); text-shadow: 0 0 20px #FFD700, 0 0 30px #FFA500, 4px 4px 0px #000; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Botones estilo Minecraft */
+        .mc-button {
+            background-color: #aaa;
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px rgba(0,0,0,0.4), inset 4px 4px 0px rgba(255,255,255,0.5);
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            padding: 15px 30px;
+            font-size: 1rem;
+            text-shadow: 1px 1px 0px #fff;
+            transition: transform 0.1s;
+        }
+
+        .mc-button:active {
+            transform: scale(0.95);
+            box-shadow: inset 4px 4px 0px rgba(0,0,0,0.4), inset -4px -4px 0px rgba(255,255,255,0.5);
+        }
+
+        .mc-button:hover { background-color: #ccc; }
+
+        /* =========================================
+           CONTENIDO PRINCIPAL
+        ========================================= */
+        #main-content {
+            display: none;
+            padding: 80px 20px 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Controles de Música */
+        #music-control {
+            position: fixed;
+            top: 20px; right: 20px;
+            z-index: 50;
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Barra de Experiencia */
+        .xp-container {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 4px solid var(--mc-border);
+        }
+
+        .xp-level {
+            font-size: 1.5rem;
+            color: var(--mc-xp);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .xp-bar-bg {
+            width: 100%;
+            height: 20px;
+            background-color: #222;
+            border: 3px solid #000;
+            position: relative;
+        }
+
+        .xp-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #64db0b, var(--mc-xp));
+            width: 0%;
+            transition: width 2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+
+        /* Bloques de Mensajes (Estilo Tierra/Piedra) */
+        .message-block {
+            background-color: var(--mc-dirt);
+            border: 6px solid #000;
+            box-shadow: inset -6px -6px 0px rgba(0,0,0,0.3), inset 6px 6px 0px rgba(255,255,255,0.2);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0; /* Para animación al hacer scroll */
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .message-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 15px;
+            background-color: var(--mc-grass-top);
+        }
+
+        .typewriter-text { min-height: 80px; }
+
+        /* Iconos temáticos en mensajes */
+        .deco-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* =========================================
+           GALERÍA DE FOTOS (INVENTARIO)
+        ========================================= */
+        .gallery-container {
+            background-color: #c6c6c6;
+            border: 6px solid #555;
+            box-shadow: inset -4px -4px 0px rgba(0,0,0,0.5), inset 4px 4px 0px rgba(255,255,255,0.8);
+            padding: 20px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .gallery-title { font-size: 1.2rem; margin-bottom: 20px; }
+
+        .slider {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 4/3;
+            margin: 0 auto;
+            position: relative;
+            border: 4px solid #373737;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            object-fit: cover;
+        }
+
+        .slide.active { opacity: 1; }
+
+        /* =========================================
+           BOTÓN SORPRESA
+        ========================================= */
+        .surprise-container {
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        #surprise-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #FFD700;
+            animation: zoomGlow 1s infinite alternate;
+        }
+
+        /* =========================================
+           CONFETI (Generado por JS)
+        ========================================= */
+        .confetti {
+            position: fixed;
+            width: 10px; height: 10px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* =========================================
+           RESPONSIVE (Celulares)
+        ========================================= */
+        @media (max-width: 768px) {
+            .title-anim { font-size: 1.8rem; }
+            .subtitle-anim { font-size: 0.9rem; }
+            .xp-level { font-size: 1rem; }
+            .text-pixel-soft { font-size: 1.2rem; }
+            .mc-button { padding: 10px 15px; font-size: 0.8rem; }
+            .message-block { padding: 20px; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Pantalla de bienvenida -->
-  <div class="welcome-screen" id="welcomeScreen">
-    <h1>Antes de comenzar, escribe tu primer nombre</h1>
-    <input type="text" class="name-input" id="nameInput" placeholder="Escribe tu nombre aquí">
-    <button class="submit-btn" id="submitBtn">Continuar</button>
-</div>
 
-<!-- Contenido principal -->
-<div class="container" id="mainContent">
-    <!-- Header -->
-    <header>
-        <div class="hearts" id="heartsContainer"></div>
-        <h2>Mi razón de ser</h2>
-    </header>
+    <audio id="bgMusic" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Sección de propuesta -->
-    <section class="proposal-section">
-    </section>
+    <div class="sky-background">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
 
-    <!-- Galería de fotos -->
-    <section class="gallery-section">
+    <div id="start-screen">
+        <h1 class="title-anim">¡Feliz Cumpleaños<br>Santiago!</h1>
+        <p class="subtitle-anim">Nivel 12 desbloqueado 🎮✨</p>
+        <button class="mc-button" onclick="startGame()">Comenzar la aventura</button>
+    </div>
+
+    <button id="music-control" class="mc-button" style="display:none;" onclick="toggleMusic()">🔊 Música</button>
+
+    <div id="main-content">
         
-    </section> 
+        <div class="xp-container">
+            <h2 class="xp-level">Jugador: Santiago | Nivel: 12 años</h2>
+            <div class="xp-bar-bg">
+                <div class="xp-bar-fill" id="xp-bar"></div>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.8rem;">EXP: 1200 / 1200</p>
+        </div>
 
-    <!-- Sección final -->
-    <section class="final-section">
-        
-      
-    </section>
+        <div class="message-block observer-item">
+            <div class="deco-icon">🟩 🧠</div>
+            <div class="text-pixel-soft typewriter-text" data-text="Santiago, hoy celebramos no solo tus 12 años, sino la increíble persona en la que te estás convirtiendo. Eres un niño inteligente, curioso y siempre dispuesto a aprender cosas nuevas. Nos llena de orgullo ver lo responsable y dedicado que eres en todo lo que haces."></div>
+        </div>
 
-    <!-- Footer -->
-    
-</div>
+        <div class="message-block observer-item">
+            <div class="deco-icon">⭐ 📚</div>
+            <div class="text-pixel-soft typewriter-text" data-text="Admiramos tu disciplina, tu orden y la forma en la que te esfuerzas cada día. No muchos niños tienen esa capacidad de compromiso que tú tienes, y eso te hace realmente especial. Un verdadero ejemplo."></div>
+        </div>
 
-<!-- Control de música -->
-<div class="music-control" id="musicControl">
-    <span class="music-icon">♪</span>
-</div>
+        <div class="message-block observer-item">
+            <div class="deco-icon">🃏 🚗</div>
+            <div class="text-pixel-soft typewriter-text" data-text="Tu pasión por coleccionar, ya sea tus cartas de Pokémon o tus carros Hot Wheels, demuestra tu atención al detalle y el valor que le das a las cosas que amas. Cada colección cuenta una historia, igual que tú estás construyendo la tuya."></div>
+        </div>
 
-<!-- Audio -->
-<audio id="backgroundMusic" loop>
-    <source src="casate_conmigo.mp3" type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
-<script src="cumple.js"></script>
+        <div class="message-block observer-item">
+            <div class="deco-icon">⛏️ 💎</div>
+            <div class="text-pixel-soft typewriter-text" data-text="Así como en Minecraft construyes mundos increíbles bloque a bloque, en la vida estás construyendo un futuro brillante con cada paso que das."></div>
+        </div>
+
+        <div class="gallery-container observer-item">
+            <h2 class="gallery-title">📸 Inventario de Recuerdos</h2>
+            <div class="slider">
+                <img src="/foto1.jpeg" class="slide active" alt="Recuerdo 1">
+                <img src="/foto2.jpeg" class="slide" alt="Recuerdo 2">
+                <img src="/foto3.jpeg" class="slide" alt="Recuerdo 3">
+                <img src="/foto4.jpeg" class="slide" alt="Recuerdo 4">
+                <img src="/foto5.jpeg" class="slide" alt="Recuerdo 5">
+                <img src="/foto6.jpeg" class="slide" alt="Recuerdo 6">
+            </div>
+            <p class="text-pixel-soft" style="margin-top: 15px; font-size: 1.2rem; color: #222;">Tus mejores momentos guardados en el inventario.</p>
+        </div>
+
+        <div class="message-block observer-item" style="border-color: #FFD700;">
+            <div class="deco-icon">❤️ 🎉</div>
+            <div class="text-pixel-soft typewriter-text" data-text="Te amamos profundamente. Gracias por ser un hijo maravilloso, por llenarnos de alegría y por enseñarnos tanto cada día. Nunca dejes de soñar en grande. ¡Feliz cumpleaños, campeón!"></div>
+        </div>
+
+        <div class="surprise-container observer-item">
+            <button class="mc-button" style="padding: 20px 40px; font-size: 1.2rem; background-color: #FFD700;" onclick="triggerSurprise()">🎁 ABRIR REGALO SORPRESA 🎁</button>
+            <div id="surprise-message">🎁 ¡Eres nuestro mayor tesoro, Santiago! 🎁</div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 1. Control de la Pantalla Inicial ---
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        function startGame() {
+            // Ocultar pantalla inicial
+            document.getElementById('start-screen').style.transform = 'translateY(-100vh)';
+            document.getElementById('start-screen').style.opacity = '0';
+            
+            setTimeout(() => {
+                document.getElementById('start-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('music-control').style.display = 'block';
+                
+                // Animar barra de experiencia
+                setTimeout(() => {
+                    document.getElementById('xp-bar').style.width = '100%';
+                }, 500);
+
+                // Inicializar animaciones de scroll y galería
+                initScrollObserver();
+                startGallery();
+            }, 800);
+
+            // Intentar reproducir música
+            bgMusic.volume = 0.5;
+            bgMusic.play().then(() => {
+                musicPlaying = true;
+            }).catch(e => console.log("El navegador bloqueó el autoplay de audio."));
+            
+            // Confeti inicial
+            createConfetti(50);
+        }
+
+        // --- 2. Control de Música ---
+        function toggleMusic() {
+            const btn = document.getElementById('music-control');
+            if(musicPlaying) {
+                bgMusic.pause();
+                btn.innerText = '🔇 Música';
+            } else {
+                bgMusic.play();
+                btn.innerText = '🔊 Música';
+            }
+            musicPlaying = !musicPlaying;
+        }
+
+        // --- 3. Galería Automática ---
+        let currentSlide = 0;
+        function startGallery() {
+            const slides = document.querySelectorAll('.slide');
+            if(slides.length === 0) return;
+
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000); // Cambia de foto cada 4 segundos
+        }
+
+        // --- 4. Efecto Máquina de Escribir (Al hacer scroll) ---
+        function typeWriterEffect(element, text, speed = 50) {
+            element.innerHTML = ""; // Limpiar contenido
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Observer para activar animaciones cuando el elemento es visible
+        function initScrollObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible'); // Efecto "Level Up" / Fade In
+                        
+                        // Si es un bloque de texto, iniciar máquina de escribir
+                        const textElement = entry.target.querySelector('.typewriter-text');
+                        if (textElement && !textElement.classList.contains('typed')) {
+                            const text = textElement.getAttribute('data-text');
+                            typeWriterEffect(textElement, text);
+                            textElement.classList.add('typed'); // Evitar que se repita
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.observer-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // --- 5. Botón Sorpresa y Confeti ---
+        function triggerSurprise() {
+            createConfetti(150); // Gran explosión de confeti
+            const msg = document.getElementById('surprise-message');
+            msg.style.display = 'block';
+            
+            // Pequeño efecto de vibración en la pantalla
+            document.body.style.animation = "shake 0.5s";
+            setTimeout(() => { document.body.style.animation = ""; }, 500);
+        }
+
+        function createConfetti(amount) {
+            const colors = ['#5b8731', '#866043', '#FFD700', '#FF0000', '#0000FF', '#FFFFFF'];
+            
+            for (let i = 0; i < amount; i++) {
+                const confeti = document.createElement('div');
+                confeti.classList.add('confetti');
+                
+                // Propiedades aleatorias para estilo pixel
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100; // Posición horizontal %
+                const animDuration = Math.random() * 3 + 2; // Duración entre 2s y 5s
+                const delay = Math.random() * 0.5;
+                const size = Math.random() * 10 + 5; // Tamaño entre 5px y 15px
+
+                confeti.style.backgroundColor = color;
+                confeti.style.left = left + 'vw';
+                confeti.style.top = '-20px';
+                confeti.style.width = size + 'px';
+                confeti.style.height = size + 'px';
+                confeti.style.animationDuration = animDuration + 's';
+                confeti.style.animationDelay = delay + 's';
+
+                document.body.appendChild(confeti);
+
+                // Eliminar el confeti del DOM después de que caiga
+                setTimeout(() => {
+                    confeti.remove();
+                }, (animDuration + delay) * 1000);
+            }
+        }
+
+        // CSS extra inyectado para el efecto de vibración sorpresa
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0% { transform: translate(1px, 1px) rotate(0deg); }
+                20% { transform: translate(-3px, 0px) rotate(1deg); }
+                40% { transform: translate(1px, -1px) rotate(1deg); }
+                60% { transform: translate(-3px, 1px) rotate(0deg); }
+                80% { transform: translate(-1px, -1px) rotate(1deg); }
+                100% { transform: translate(1px, -2px) rotate(-1deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
