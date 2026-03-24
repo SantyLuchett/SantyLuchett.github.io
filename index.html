@@ -19,24 +19,25 @@
             --mc-xp: #a3f415;
             --text-light: #ffffff;
             --text-dark: #222222;
+            --poke-yellow: #fccf00;
+            --poke-blue: #2a75bb;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: url('https://cur.cursors-4u.net/games/gam-13/gam1282.cur'), auto; /* Cursor estilo cruz de Minecraft */
+            cursor: url('https://cur.cursors-4u.net/games/gam-13/gam1282.cur'), auto;
         }
 
         body {
             font-family: 'Press Start 2P', cursive;
-            background-color: #87CEEB; /* Color cielo */
+            background-color: #87CEEB;
             color: var(--text-light);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Tipografía para textos largos (más legible pero estilo pixel) */
         .text-pixel-soft {
             font-family: 'VT323', monospace;
             font-size: 1.5rem;
@@ -49,9 +50,7 @@
             line-height: 1.5;
         }
 
-        /* =========================================
-           FONDO ANIMADO Y NUBES
-        ========================================= */
+        /* Fondo y Nubes */
         .sky-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -62,10 +61,7 @@
         .cloud {
             position: absolute;
             background: rgba(255, 255, 255, 0.8);
-            box-shadow: 
-                -20px 20px 0 rgba(255,255,255,0.8),
-                20px 20px 0 rgba(255,255,255,0.8),
-                0 40px 0 rgba(255,255,255,0.8);
+            box-shadow: -20px 20px 0 rgba(255,255,255,0.8), 20px 20px 0 rgba(255,255,255,0.8), 0 40px 0 rgba(255,255,255,0.8);
             width: 60px; height: 20px;
             animation: moveClouds linear infinite;
         }
@@ -79,240 +75,123 @@
             100% { transform: translateX(110vw); }
         }
 
-        /* =========================================
-           PANTALLA DE INICIO (HERO)
-        ========================================= */
+        /* Pantalla Inicial */
         #start-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             background: linear-gradient(to bottom, #87CEEB 60%, var(--mc-grass-top) 60%, var(--mc-dirt) 65%);
             z-index: 100;
             transition: opacity 1s ease, transform 1s ease;
-            text-align: center;
-            padding: 20px;
+            text-align: center; padding: 20px;
         }
 
-        .title-anim {
-            font-size: 3rem;
-            color: #FFD700;
-            animation: zoomGlow 2s infinite alternate;
-            margin-bottom: 20px;
-            word-wrap: break-word;
-        }
-
-        .subtitle-anim {
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 40px;
-            animation: fadeIn 3s ease-in;
-        }
+        .title-anim { font-size: 3rem; color: #FFD700; animation: zoomGlow 2s infinite alternate; margin-bottom: 20px; }
+        .subtitle-anim { font-size: 1.2rem; margin-bottom: 40px; animation: fadeIn 3s ease-in; }
 
         @keyframes zoomGlow {
             0% { transform: scale(1); text-shadow: 0 0 10px #FFD700, 4px 4px 0px #000; }
             100% { transform: scale(1.05); text-shadow: 0 0 20px #FFD700, 0 0 30px #FFA500, 4px 4px 0px #000; }
         }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Botones estilo Minecraft */
+        /* Botones */
         .mc-button {
-            background-color: #aaa;
-            border: 4px solid #000;
+            background-color: #aaa; border: 4px solid #000;
             box-shadow: inset -4px -4px 0px rgba(0,0,0,0.4), inset 4px 4px 0px rgba(255,255,255,0.5);
-            color: #000;
-            font-family: 'Press Start 2P', cursive;
-            padding: 15px 30px;
-            font-size: 1rem;
-            text-shadow: 1px 1px 0px #fff;
-            transition: transform 0.1s;
+            color: #000; font-family: 'Press Start 2P', cursive; padding: 15px 30px; font-size: 1rem;
+            text-shadow: 1px 1px 0px #fff; transition: transform 0.1s;
         }
-
-        .mc-button:active {
-            transform: scale(0.95);
-            box-shadow: inset 4px 4px 0px rgba(0,0,0,0.4), inset -4px -4px 0px rgba(255,255,255,0.5);
-        }
-
+        .mc-button:active { transform: scale(0.95); box-shadow: inset 4px 4px 0px rgba(0,0,0,0.4), inset -4px -4px 0px rgba(255,255,255,0.5); }
         .mc-button:hover { background-color: #ccc; }
 
-        /* =========================================
-           CONTENIDO PRINCIPAL
-        ========================================= */
-        #main-content {
-            display: none;
-            padding: 80px 20px 40px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
+        /* Contenido Principal */
+        #main-content { display: none; padding: 80px 20px 40px 20px; max-width: 900px; margin: 0 auto; position: relative; z-index: 10; }
+        #music-control { position: fixed; top: 20px; right: 20px; z-index: 50; padding: 10px; font-size: 0.8rem; }
 
-        /* Controles de Música */
-        #music-control {
-            position: fixed;
-            top: 20px; right: 20px;
-            z-index: 50;
-            padding: 10px;
-            font-size: 0.8rem;
-        }
+        /* Barra XP */
+        .xp-container { text-align: center; margin-bottom: 40px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 4px solid var(--mc-border); }
+        .xp-level { font-size: 1.5rem; color: var(--mc-xp); margin-bottom: 10px; text-shadow: 2px 2px 0px #000; }
+        .xp-bar-bg { width: 100%; height: 20px; background-color: #222; border: 3px solid #000; position: relative; }
+        .xp-bar-fill { height: 100%; background: linear-gradient(90deg, #64db0b, var(--mc-xp)); width: 0%; transition: width 2s cubic-bezier(0.1, 0.7, 1.0, 0.1); }
 
-        /* Barra de Experiencia */
-        .xp-container {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 10px;
-            border: 4px solid var(--mc-border);
-        }
-
-        .xp-level {
-            font-size: 1.5rem;
-            color: var(--mc-xp);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        .xp-bar-bg {
-            width: 100%;
-            height: 20px;
-            background-color: #222;
-            border: 3px solid #000;
-            position: relative;
-        }
-
-        .xp-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #64db0b, var(--mc-xp));
-            width: 0%;
-            transition: width 2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
-        }
-
-        /* Bloques de Mensajes (Estilo Tierra/Piedra) */
+        /* Mensajes */
         .message-block {
-            background-color: var(--mc-dirt);
-            border: 6px solid #000;
+            background-color: var(--mc-dirt); border: 6px solid #000;
             box-shadow: inset -6px -6px 0px rgba(0,0,0,0.3), inset 6px 6px 0px rgba(255,255,255,0.2);
-            padding: 30px;
-            margin-bottom: 40px;
-            position: relative;
-            opacity: 0; /* Para animación al hacer scroll */
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 30px; margin-bottom: 40px; position: relative;
+            opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease;
         }
-
-        .message-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .message-block::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 15px;
-            background-color: var(--mc-grass-top);
-        }
-
+        .message-block.visible { opacity: 1; transform: translateY(0); }
+        .message-block::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 15px; background-color: var(--mc-grass-top); }
         .typewriter-text { min-height: 80px; }
-
-        /* Iconos temáticos en mensajes */
-        .deco-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+        .deco-icon { font-size: 2rem; margin-bottom: 15px; display: inline-block; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 
         /* =========================================
-           GALERÍA DE FOTOS (INVENTARIO)
+           NUEVO: GALERÍA ESTILO CARTAS POKÉMON
         ========================================= */
         .gallery-container {
-            background-color: #c6c6c6;
-            border: 6px solid #555;
-            box-shadow: inset -4px -4px 0px rgba(0,0,0,0.5), inset 4px 4px 0px rgba(255,255,255,0.8);
-            padding: 20px;
-            margin-bottom: 50px;
-            text-align: center;
-            color: var(--text-dark);
+            background-color: rgba(0,0,0,0.6); border: 6px solid var(--poke-blue);
+            padding: 40px 20px; margin-bottom: 50px; text-align: center; border-radius: 15px;
+        }
+        .gallery-title { font-size: 1.5rem; margin-bottom: 30px; color: var(--poke-yellow); text-shadow: 3px 3px 0px #000; }
+        
+        .cards-wrapper {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
+            perspective: 1000px; /* Necesario para el efecto 3D */
         }
 
-        .gallery-title { font-size: 1.2rem; margin-bottom: 20px; }
-
-        .slider {
-            width: 100%;
-            max-width: 500px;
-            aspect-ratio: 4/3;
-            margin: 0 auto;
+        .pokemon-card {
+            width: 250px; height: 350px;
+            background-color: #ffe55c;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 0 8px var(--poke-yellow);
             position: relative;
-            border: 4px solid #373737;
-            background: #000;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
             overflow: hidden;
+            cursor: pointer;
         }
 
-        .slide {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+        .pokemon-card img {
+            width: 100%; height: 50%;
             object-fit: cover;
+            border: 4px solid #a3a3a3;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
-        .slide.active { opacity: 1; }
-
-        /* =========================================
-           BOTÓN SORPRESA
-        ========================================= */
-        .surprise-container {
-            text-align: center;
-            margin-top: 60px;
-            padding-bottom: 60px;
+        .card-stats {
+            background: rgba(255,255,255,0.8);
+            color: #000; font-family: 'VT323', monospace;
+            padding: 10px; border-radius: 5px; text-align: left;
+            font-size: 1.1rem; line-height: 1.2;
         }
 
-        #surprise-message {
-            display: none;
-            margin-top: 20px;
-            font-size: 1.5rem;
-            color: #FFD700;
-            animation: zoomGlow 1s infinite alternate;
+        .card-title { font-family: 'Press Start 2P', cursive; font-size: 0.7rem; margin-bottom: 5px; display: flex; justify-content: space-between;}
+
+        /* Efecto Holográfico */
+        .holo-glare {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.6) 25%, transparent 30%);
+            mix-blend-mode: color-dodge;
+            opacity: 0; z-index: 2; pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        /* =========================================
-           CONFETI (Generado por JS)
-        ========================================= */
-        .confetti {
-            position: fixed;
-            width: 10px; height: 10px;
-            z-index: 999;
-            pointer-events: none;
-            animation: fall linear forwards;
-        }
+        /* Botón Sorpresa y Confeti */
+        .surprise-container { text-align: center; margin-top: 60px; padding-bottom: 60px; }
+        #surprise-message { display: none; margin-top: 20px; font-size: 1.5rem; color: #FFD700; animation: zoomGlow 1s infinite alternate; }
+        .confetti { position: fixed; width: 10px; height: 10px; z-index: 999; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
 
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(720deg); }
-        }
-
-        /* =========================================
-           RESPONSIVE (Celulares)
-        ========================================= */
         @media (max-width: 768px) {
             .title-anim { font-size: 1.8rem; }
-            .subtitle-anim { font-size: 0.9rem; }
             .xp-level { font-size: 1rem; }
-            .text-pixel-soft { font-size: 1.2rem; }
-            .mc-button { padding: 10px 15px; font-size: 0.8rem; }
-            .message-block { padding: 20px; }
+            .pokemon-card { width: 100%; max-width: 300px; height: auto; }
         }
     </style>
 </head>
@@ -321,23 +200,29 @@
     <audio id="bgMusic" loop>
         <source src="audio.mp3" type="audio/mpeg">
     </audio>
+    <audio id="sfx-click">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-levelup">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-magic">
+        <source src="picar_piedra-minecraft.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="sky-background">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="cloud cloud3"></div>
+        <div class="cloud cloud1"></div><div class="cloud cloud2"></div><div class="cloud cloud3"></div>
     </div>
 
     <div id="start-screen">
         <h1 class="title-anim">¡Feliz Cumpleaños<br>Santiago!</h1>
         <p class="subtitle-anim">Nivel 12 desbloqueado 🎮✨</p>
-        <button class="mc-button" onclick="startGame()">Comenzar la aventura</button>
+        <button class="mc-button" onclick="startGame()" onmouseover="playSFX('sfx-click')">Comenzar la aventura</button>
     </div>
 
-    <button id="music-control" class="mc-button" style="display:none;" onclick="toggleMusic()">🔊 Música</button>
+    <button id="music-control" class="mc-button" style="display:none;" onclick="toggleMusic()" onmouseover="playSFX('sfx-click')">🔊 Música</button>
 
     <div id="main-content">
-        
         <div class="xp-container">
             <h2 class="xp-level">Jugador: Santiago | Nivel: 12 años</h2>
             <div class="xp-bar-bg">
@@ -350,33 +235,84 @@
             <div class="deco-icon">🟩 🧠</div>
             <div class="text-pixel-soft typewriter-text" data-text="Santiago, hoy celebramos no solo tus 12 años, sino la increíble persona en la que te estás convirtiendo. Eres un niño inteligente, curioso y siempre dispuesto a aprender cosas nuevas. Nos llena de orgullo ver lo responsable y dedicado que eres en todo lo que haces."></div>
         </div>
-
         <div class="message-block observer-item">
             <div class="deco-icon">⭐ 📚</div>
             <div class="text-pixel-soft typewriter-text" data-text="Admiramos tu disciplina, tu orden y la forma en la que te esfuerzas cada día. No muchos niños tienen esa capacidad de compromiso que tú tienes, y eso te hace realmente especial. Un verdadero ejemplo."></div>
         </div>
-
         <div class="message-block observer-item">
             <div class="deco-icon">🃏 🚗</div>
             <div class="text-pixel-soft typewriter-text" data-text="Tu pasión por coleccionar, ya sea tus cartas de Pokémon o tus carros Hot Wheels, demuestra tu atención al detalle y el valor que le das a las cosas que amas. Cada colección cuenta una historia, igual que tú estás construyendo la tuya."></div>
         </div>
-
         <div class="message-block observer-item">
             <div class="deco-icon">⛏️ 💎</div>
             <div class="text-pixel-soft typewriter-text" data-text="Así como en Minecraft construyes mundos increíbles bloque a bloque, en la vida estás construyendo un futuro brillante con cada paso que das."></div>
         </div>
 
         <div class="gallery-container observer-item">
-            <h2 class="gallery-title">📸 Inventario de Recuerdos</h2>
-            <div class="slider">
-                <img src="/foto1.jpeg" class="slide active" alt="Recuerdo 1">
-                <img src="/foto2.jpeg" class="slide" alt="Recuerdo 2">
-                <img src="/foto3.jpeg" class="slide" alt="Recuerdo 3">
-                <img src="/foto4.jpeg" class="slide" alt="Recuerdo 4">
-                <img src="/foto5.jpeg" class="slide" alt="Recuerdo 5">
-                <img src="/foto6.jpeg" class="slide" alt="Recuerdo 6">
+            <h2 class="gallery-title">🃏 Cartas de Colección: Edición Santiago</h2>
+            <div class="cards-wrapper">
+
+               <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Soñador</span> <span>170 HP</span></div>
+                    <img src="foto1.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Mente Creativa.<br>
+                        <em>Siempre imaginando nuevos mundos y posibilidades.</em>
+                    </div>
+                </div>
+                
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Aventurero</span> <span>120 HP</span></div>
+                    <img src="foto2.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Construcción Rápida.<br>
+                        <em>Siempre listo para crear nuevos mundos.</em>
+                    </div>
+                </div>
+
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Explorador</span> <span>160 HP</span></div>
+                    <img src="foto3.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Coraje Sin Límites.<br>
+                        <em>Siempre listo para aventuras y descubrimientos.</em>
+                    </div>
+                </div>
+
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Coleccionista</span> <span>150 HP</span></div>
+                    <img src="foto4.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Orden Absoluto.<br>
+                        <em>Siempre mantiene todo en su lugar.</em>
+                    </div>
+                </div>
+
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Estudiante</span> <span>200 HP</span></div>
+                    <img src="foto5.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Mente Maestra.<br>
+                        <em>Absorbe conocimiento a la velocidad de la luz.</em>
+                    </div>
+                </div>
+
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-title"><span>Amigo Leal</span> <span>180 HP</span></div>
+                    <img src="foto6.jpeg" alt="Recuerdo">
+                    <div class="card-stats">
+                        <strong>Habilidad:</strong> Corazón de Oro.<br>
+                        <em>Siempre dispuesto a ayudar y compartir con los demás.</em>
+                    </div>
+                </div>
+
             </div>
-            <p class="text-pixel-soft" style="margin-top: 15px; font-size: 1.2rem; color: #222;">Tus mejores momentos guardados en el inventario.</p>
         </div>
 
         <div class="message-block observer-item" style="border-color: #FFD700;">
@@ -385,19 +321,28 @@
         </div>
 
         <div class="surprise-container observer-item">
-            <button class="mc-button" style="padding: 20px 40px; font-size: 1.2rem; background-color: #FFD700;" onclick="triggerSurprise()">🎁 ABRIR REGALO SORPRESA 🎁</button>
+            <button class="mc-button" style="padding: 20px 40px; font-size: 1.2rem; background-color: #FFD700;" onclick="triggerSurprise()" onmouseover="playSFX('sfx-click')">🎁 ABRIR REGALO SORPRESA 🎁</button>
             <div id="surprise-message">🎁 ¡Eres nuestro mayor tesoro, Santiago! 🎁</div>
         </div>
 
     </div>
 
     <script>
-        // --- 1. Control de la Pantalla Inicial ---
         const bgMusic = document.getElementById('bgMusic');
         let musicPlaying = false;
 
+        // Reproductor de Efectos
+        function playSFX(id) {
+            const sfx = document.getElementById(id);
+            if(sfx) {
+                sfx.currentTime = 0;
+                sfx.volume = 0.6;
+                sfx.play().catch(e => console.log("SFX bloqueado por el navegador hasta la interacción."));
+            }
+        }
+
         function startGame() {
-            // Ocultar pantalla inicial
+            playSFX('sfx-click');
             document.getElementById('start-screen').style.transform = 'translateY(-100vh)';
             document.getElementById('start-screen').style.opacity = '0';
             
@@ -406,55 +351,31 @@
                 document.getElementById('main-content').style.display = 'block';
                 document.getElementById('music-control').style.display = 'block';
                 
-                // Animar barra de experiencia
+                // Animar XP y reproducir sonido de nivel
                 setTimeout(() => {
                     document.getElementById('xp-bar').style.width = '100%';
+                    playSFX('sfx-levelup');
                 }, 500);
 
-                // Inicializar animaciones de scroll y galería
                 initScrollObserver();
-                startGallery();
+                initPokemonCards(); // Inicializar lógica 3D de las cartas
             }, 800);
 
-            // Intentar reproducir música
-            bgMusic.volume = 0.5;
-            bgMusic.play().then(() => {
-                musicPlaying = true;
-            }).catch(e => console.log("El navegador bloqueó el autoplay de audio."));
-            
-            // Confeti inicial
+            bgMusic.volume = 0.4;
+            bgMusic.play().then(() => { musicPlaying = true; }).catch(e => console.log("Audio autoplay bloqueado."));
             createConfetti(50);
         }
 
-        // --- 2. Control de Música ---
         function toggleMusic() {
+            playSFX('sfx-click');
             const btn = document.getElementById('music-control');
-            if(musicPlaying) {
-                bgMusic.pause();
-                btn.innerText = '🔇 Música';
-            } else {
-                bgMusic.play();
-                btn.innerText = '🔊 Música';
-            }
+            if(musicPlaying) { bgMusic.pause(); btn.innerText = '🔇 Música'; } 
+            else { bgMusic.play(); btn.innerText = '🔊 Música'; }
             musicPlaying = !musicPlaying;
         }
 
-        // --- 3. Galería Automática ---
-        let currentSlide = 0;
-        function startGallery() {
-            const slides = document.querySelectorAll('.slide');
-            if(slides.length === 0) return;
-
-            setInterval(() => {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 4000); // Cambia de foto cada 4 segundos
-        }
-
-        // --- 4. Efecto Máquina de Escribir (Al hacer scroll) ---
         function typeWriterEffect(element, text, speed = 50) {
-            element.innerHTML = ""; // Limpiar contenido
+            element.innerHTML = "";
             let i = 0;
             function type() {
                 if (i < text.length) {
@@ -466,53 +387,83 @@
             type();
         }
 
-        // Observer para activar animaciones cuando el elemento es visible
         function initScrollObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible'); // Efecto "Level Up" / Fade In
+                        entry.target.classList.add('visible');
                         
-                        // Si es un bloque de texto, iniciar máquina de escribir
                         const textElement = entry.target.querySelector('.typewriter-text');
                         if (textElement && !textElement.classList.contains('typed')) {
+                            playSFX('sfx-magic'); // Sonido al revelar bloque
                             const text = textElement.getAttribute('data-text');
                             typeWriterEffect(textElement, text);
-                            textElement.classList.add('typed'); // Evitar que se repita
+                            textElement.classList.add('typed');
                         }
                     }
                 });
             }, { threshold: 0.2 });
 
-            document.querySelectorAll('.observer-item').forEach(item => {
-                observer.observe(item);
+            document.querySelectorAll('.observer-item').forEach(item => observer.observe(item));
+        }
+
+        // --- LÓGICA 3D CARTAS POKÉMON ---
+        function initPokemonCards() {
+            const cards = document.querySelectorAll('.pokemon-card');
+            
+            cards.forEach(card => {
+                const holo = card.querySelector('.holo-glare');
+                
+                card.addEventListener('mousemove', e => {
+                    // Capturar posición del cursor relativo a la carta
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Calcular centro y rotación
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    // Ajusta el multiplicador (15) para más o menos rotación
+                    const rotateX = ((y - centerY) / centerY) * -15; 
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    
+                    // Aplicar transformación
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                    
+                    // Efecto de brillo dinámico
+                    if(holo) {
+                        holo.style.opacity = '1';
+                        holo.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.4), transparent 50%)`;
+                    }
+                });
+
+                // Resetear al quitar el mouse
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    if(holo) holo.style.opacity = '0';
+                });
             });
         }
 
-        // --- 5. Botón Sorpresa y Confeti ---
         function triggerSurprise() {
-            createConfetti(150); // Gran explosión de confeti
-            const msg = document.getElementById('surprise-message');
-            msg.style.display = 'block';
-            
-            // Pequeño efecto de vibración en la pantalla
+            playSFX('sfx-levelup');
+            createConfetti(150);
+            document.getElementById('surprise-message').style.display = 'block';
             document.body.style.animation = "shake 0.5s";
             setTimeout(() => { document.body.style.animation = ""; }, 500);
         }
 
         function createConfetti(amount) {
             const colors = ['#5b8731', '#866043', '#FFD700', '#FF0000', '#0000FF', '#FFFFFF'];
-            
             for (let i = 0; i < amount; i++) {
                 const confeti = document.createElement('div');
                 confeti.classList.add('confetti');
-                
-                // Propiedades aleatorias para estilo pixel
                 const color = colors[Math.floor(Math.random() * colors.length)];
-                const left = Math.random() * 100; // Posición horizontal %
-                const animDuration = Math.random() * 3 + 2; // Duración entre 2s y 5s
+                const left = Math.random() * 100;
+                const animDuration = Math.random() * 3 + 2;
                 const delay = Math.random() * 0.5;
-                const size = Math.random() * 10 + 5; // Tamaño entre 5px y 15px
+                const size = Math.random() * 10 + 5;
 
                 confeti.style.backgroundColor = color;
                 confeti.style.left = left + 'vw';
@@ -523,26 +474,12 @@
                 confeti.style.animationDelay = delay + 's';
 
                 document.body.appendChild(confeti);
-
-                // Eliminar el confeti del DOM después de que caiga
-                setTimeout(() => {
-                    confeti.remove();
-                }, (animDuration + delay) * 1000);
+                setTimeout(() => confeti.remove(), (animDuration + delay) * 1000);
             }
         }
 
-        // CSS extra inyectado para el efecto de vibración sorpresa
         const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes shake {
-                0% { transform: translate(1px, 1px) rotate(0deg); }
-                20% { transform: translate(-3px, 0px) rotate(1deg); }
-                40% { transform: translate(1px, -1px) rotate(1deg); }
-                60% { transform: translate(-3px, 1px) rotate(0deg); }
-                80% { transform: translate(-1px, -1px) rotate(1deg); }
-                100% { transform: translate(1px, -2px) rotate(-1deg); }
-            }
-        `;
+        style.innerHTML = `@keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }`;
         document.head.appendChild(style);
     </script>
 </body>
