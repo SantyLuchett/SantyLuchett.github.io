@@ -86,7 +86,7 @@
             text-align: center; padding: 20px;
         }
 
-        .title-anim { font-size: 3rem; color: #FFD700; animation: zoomGlow 2s infinite alternate; margin-bottom: 20px; }
+        .title-anim { font-size: 3rem; color: #FFD700; animation: zoomGlow 2s infinite alternate; margin-bottom: 20px; word-wrap: break-word; }
         .subtitle-anim { font-size: 1.2rem; margin-bottom: 40px; animation: fadeIn 3s ease-in; }
 
         @keyframes zoomGlow {
@@ -95,7 +95,7 @@
         }
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-        /* Botones */
+        /* Botones Minecraft */
         .mc-button {
             background-color: #aaa; border: 4px solid #000;
             box-shadow: inset -4px -4px 0px rgba(0,0,0,0.4), inset 4px 4px 0px rgba(255,255,255,0.5);
@@ -106,7 +106,7 @@
         .mc-button:hover { background-color: #ccc; }
 
         /* Contenido Principal */
-        #main-content { display: none; padding: 80px 20px 40px 20px; max-width: 900px; margin: 0 auto; position: relative; z-index: 10; }
+        #main-content { display: none; padding: 80px 20px 40px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 10; }
         #music-control { position: fixed; top: 20px; right: 20px; z-index: 50; padding: 10px; font-size: 0.8rem; }
 
         /* Barra XP */
@@ -115,7 +115,7 @@
         .xp-bar-bg { width: 100%; height: 20px; background-color: #222; border: 3px solid #000; position: relative; }
         .xp-bar-fill { height: 100%; background: linear-gradient(90deg, #64db0b, var(--mc-xp)); width: 0%; transition: width 2s cubic-bezier(0.1, 0.7, 1.0, 0.1); }
 
-        /* Mensajes */
+        /* Mensajes Tierra/Piedra */
         .message-block {
             background-color: var(--mc-dirt); border: 6px solid #000;
             box-shadow: inset -6px -6px 0px rgba(0,0,0,0.3), inset 6px 6px 0px rgba(255,255,255,0.2);
@@ -129,54 +129,73 @@
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
 
         /* =========================================
-           NUEVO: GALERÍA ESTILO CARTAS POKÉMON
+           MEJORADO: GALERÍA ESTILO POKÉMON (RESPONSIVE)
         ========================================= */
         .gallery-container {
-            background-color: rgba(0,0,0,0.6); border: 6px solid var(--poke-blue);
-            padding: 40px 20px; margin-bottom: 50px; text-align: center; border-radius: 15px;
+            background-color: rgba(0,0,0,0.7); border: 6px solid var(--poke-blue);
+            padding: 40px 10px; margin-bottom: 50px; text-align: center; border-radius: 15px;
+            overflow: hidden; /* Importante para el carrusel móvil */
         }
         .gallery-title { font-size: 1.5rem; margin-bottom: 30px; color: var(--poke-yellow); text-shadow: 3px 3px 0px #000; }
         
         .cards-wrapper {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
-            perspective: 1000px; /* Necesario para el efecto 3D */
+            display: flex; flex-wrap: nowrap; /* Cambiado para móvil */
+            justify-content: flex-start; gap: 20px;
+            perspective: 1000px;
+            overflow-x: auto; /* Scroll horizontal en móvil */
+            padding: 20px 10px 40px 10px;
+            scroll-snap-type: x mandatory; /* Snap scrolling */
+            -webkit-overflow-scrolling: touch;
         }
+        
+        /* Ocultar barra de scroll para estética pixel */
+        .cards-wrapper::-webkit-scrollbar { display: none; }
 
         .pokemon-card {
-            width: 250px; height: 350px;
+            flex: 0 0 300px; /* Tamaño fijo de carta */
+            height: 420px;
             background-color: #ffe55c;
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 0 8px var(--poke-yellow);
+            border-radius: 15px; padding: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6), inset 0 0 0 8px var(--poke-yellow);
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            overflow: hidden;
-            cursor: pointer;
+            transition: transform 0.1s linear, box-shadow 0.1s linear;
+            overflow: hidden; cursor: pointer;
+            scroll-snap-align: center; /* Snap al centro en móvil */
         }
 
         .pokemon-card img {
-            width: 100%; height: 50%;
-            object-fit: cover;
-            border: 4px solid #a3a3a3;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            width: 100%; height: 45%; object-fit: cover;
+            border: 5px solid #a3a3a3; border-radius: 5px;
+            margin-bottom: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
-        .card-stats {
-            background: rgba(255,255,255,0.8);
+        /* Detalles de la Carta (Clásicos) */
+        .card-header { font-family: 'Press Start 2P', cursive; font-size: 0.7rem; color: #000; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .card-hp { color: #f00; font-size: 1rem; }
+        .type-icon { font-size: 1.2rem; margin-left: 5px; }
+
+        .card-body {
+            background: rgba(255,255,255,0.85);
             color: #000; font-family: 'VT323', monospace;
             padding: 10px; border-radius: 5px; text-align: left;
-            font-size: 1.1rem; line-height: 1.2;
+            font-size: 1.1rem; line-height: 1.2; height: 45%;
+            overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
         }
 
-        .card-title { font-family: 'Press Start 2P', cursive; font-size: 0.7rem; margin-bottom: 5px; display: flex; justify-content: space-between;}
+        .card-attack { border-bottom: 1px solid #999; padding-bottom: 3px; margin-bottom: 3px; }
+        .attack-header { font-family: 'Press Start 2P', cursive; font-size: 0.55rem; display: flex; justify-content: space-between; margin-bottom: 2px;}
+        .attack-cost {letter-spacing: -2px;}
+        .attack-dmg { font-size: 0.8rem; font-weight: bold; }
 
-        /* Efecto Holográfico */
+        .card-footer-details { display: flex; justify-content: space-between; font-size: 0.7rem; border-top: 2px solid #000; padding-top: 3px; margin-top: auto;}
+
+        /* Efecto Holográfico Mejorado */
         .holo-glare {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.6) 25%, transparent 30%);
+            background-image: 
+                linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%),
+                url('https://www.transparenttextures.com/patterns/diagmonds-light.png'); /* Textura pixelada densa */
             mix-blend-mode: color-dodge;
             opacity: 0; z-index: 2; pointer-events: none;
             transition: opacity 0.3s ease;
@@ -188,10 +207,14 @@
         .confetti { position: fixed; width: 10px; height: 10px; z-index: 999; pointer-events: none; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
 
+        /* Media Queries para PC y Ajustes de Carrusel */
+        @media (min-width: 900px) {
+            .cards-wrapper { justify-content: center; overflow-x: visible; }
+        }
+
         @media (max-width: 768px) {
             .title-anim { font-size: 1.8rem; }
             .xp-level { font-size: 1rem; }
-            .pokemon-card { width: 100%; max-width: 300px; height: auto; }
         }
     </style>
 </head>
@@ -207,7 +230,7 @@
         <source src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" type="audio/mpeg">
     </audio>
     <audio id="sfx-magic">
-        <source src="picarpiedra.mp3" type="audio/mpeg">
+        <source src="picar_piedra-minecraft.mp3" type="audio/mpeg">
     </audio>
 
     <div class="sky-background">
@@ -249,66 +272,151 @@
         </div>
 
         <div class="gallery-container observer-item">
-            <h2 class="gallery-title">🃏 Cartas de Colección: Edición Santiago</h2>
-            <div class="cards-wrapper">
-
-               <div class="pokemon-card">
-                    <div class="holo-glare"></div>
-                    <div class="card-title"><span>Soñador</span> <span>170 HP</span></div>
-                    <img src="foto1.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Mente Creativa.<br>
-                        <em>Siempre imaginando nuevos mundos y posibilidades.</em>
-                    </div>
-                </div>
+            <h2 class="gallery-title">🃏 Cartas de Colección: Edición Especial Santiago</h2>
+            <p class="text-pixel-soft" style="color:#fff; margin-bottom:10px; font-size:1.2rem;">(Mueve tu celular o el mouse para hacerlas brillar)</p>
+            
+            <div class="cards-wrapper" id="cards-carousel">
                 
                 <div class="pokemon-card">
                     <div class="holo-glare"></div>
-                    <div class="card-title"><span>Aventurero</span> <span>120 HP</span></div>
+                    <div class="card-header">
+                        <span>Soñador</span>
+                        <span class="card-hp">170 HP <span class="type-icon">🌌</span></span>
+                    </div>
+                    <img src="foto1.jpeg" alt="Recuerdo">
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">👁️🧠</span>
+                                <span class="attack-name">Mente Creativa</span>
+                                <span class="attack-dmg">120</span>
+                            </div>
+                            <p>Siempre imaginando nuevos mundos y posibilidades. Tu creatividad no tiene límites, y cada gran idea que tienes es el inicio de una historia increíble.</p>
+                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 💤x2</span>
+                            <span>Resistencia: ⚡</span>
+                            <span>Retirada: 🦶🦶</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pokemon-card">
+                    <div class="holo-glare"></div>
+                    <div class="card-header">
+                        <span>Aventurero</span>
+                        <span class="card-hp">120 HP <span class="type-icon">🍃</span></span>
+                    </div>
                     <img src="foto2.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Construcción Rápida.<br>
-                        <em>Siempre listo para crear nuevos mundos.</em>
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">🪨🪨</span>
+                                <span class="attack-name">Construcción Rápida</span>
+                                <span class="attack-dmg">90</span>
+                            </div>
+                            <p>Siempre listo para crear. No hay desafío en Minecraft ni en la vida real que no puedas superar con tu gran ingenio y dedicación.</p>
+                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 🔥x2</span>
+                            <span>Resistencia: 💧-30</span>
+                            <span>Retirada: 🦶</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="pokemon-card">
                     <div class="holo-glare"></div>
-                    <div class="card-title"><span>Explorador</span> <span>160 HP</span></div>
+                    <div class="card-header">
+                        <span>Explorador</span>
+                        <span class="card-hp">160 HP <span class="type-icon">⚡</span></span>
+                    </div>
                     <img src="foto3.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Coraje Sin Límites.<br>
-                        <em>Siempre listo para aventuras y descubrimientos.</em>
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">⚡🏃</span>
+                                <span class="attack-name">Coraje Sin Límites</span>
+                                <span class="attack-dmg">150</span>
+                            </div>
+                            <p>Tu curiosidad te impulsa a explorar lo desconocido, aprendiendo algo valioso y emocionante en cada nuevo paso que das en tu camino.</p>
+                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 🪨x2</span>
+                            <span>Resistencia: 🍃-20</span>
+                            <span>Retirada: 🦶🦶</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="pokemon-card">
                     <div class="holo-glare"></div>
-                    <div class="card-title"><span>Coleccionista</span> <span>150 HP</span></div>
+                    <div class="card-header">
+                        <span>Coleccionista</span>
+                        <span class="card-hp">150 HP <span class="type-icon">⚙️</span></span>
+                    </div>
                     <img src="foto5.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Orden Absoluto.<br>
-                        <em>Siempre mantiene todo en su lugar.</em>
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">🃏🚗</span>
+                                <span class="attack-name">Orden Absoluto</span>
+                                <span class="attack-dmg">100</span>
+                            </div>
+                            <p>Tu capacidad de organización y atención al detalle demuestran el gran valor que le das a lo que amas.</p>
+                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 🌪️x2</span>
+                            <span>Resistencia: 🔮-20</span>
+                            <span>Retirada: 🦶</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="pokemon-card">
                     <div class="holo-glare"></div>
-                    <div class="card-title"><span>Estudiante</span> <span>200 HP</span></div>
+                    <div class="card-header">
+                        <span>Estudiante</span>
+                        <span class="card-hp">200 HP <span class="type-icon">🧠</span></span>
+                    </div>
                     <img src="foto4.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Mente Maestra.<br>
-                        <em>Absorbe conocimiento a la velocidad de la luz.</em>
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">📚💡</span>
+                                <span class="attack-name">Mente Maestra</span>
+                                <span class="attack-dmg">200</span>
+                            </div>
+                            <p>Absorbes conocimiento a la velocidad de la luz. Tu enorme disciplina y responsabilidad en el estudio te convierten en un verdadero ejemplo a seguir.</p>
+                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 🎮x2</span>
+                            <span>Resistencia: 👊-30</span>
+                            <span>Retirada: 🦶🦶🦶</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="pokemon-card">
                     <div class="holo-glare"></div>
-                    <div class="card-title"><span>Amigo Leal</span> <span>180 HP</span></div>
+                    <div class="card-header">
+                        <span>Amigo Leal</span>
+                        <span class="card-hp">180 HP <span class="type-icon">❤️</span></span>
+                    </div>
                     <img src="foto6.jpeg" alt="Recuerdo">
-                    <div class="card-stats">
-                        <strong>Habilidad:</strong> Corazón de Oro.<br>
-                        <em>Siempre dispuesto a ayudar y compartir con los demás.</em>
+                    <div class="card-body">
+                        <div class="card-attack">
+                            <div class="attack-header">
+                                <span class="attack-cost">🤝💖</span>
+                                <span class="attack-name">Corazón de Oro</span>
+                                <span class="attack-dmg">130</span>
+                            </div>
+                            <p>Tienes una nobleza infinita. Siempre estás dispuesto a ayudar, y quienes te rodean tienen la inmensa suerte de contar con tu amistad incondicional.</p>                        </div>
+                        <div class="card-footer-details">
+                            <span>Debilidad: 💔x2</span>
+                            <span>Resistencia: 👻-30</span>
+                            <span>Retirada: 🦶🦶</span>
+                        </div>
                     </div>
                 </div>
 
@@ -330,14 +438,14 @@
     <script>
         const bgMusic = document.getElementById('bgMusic');
         let musicPlaying = false;
+        let devicePermissionGranted = false; // Para giroscopio móvil
 
-        // Reproductor de Efectos
+        // Reproductor SFX
         function playSFX(id) {
             const sfx = document.getElementById(id);
             if(sfx) {
-                sfx.currentTime = 0;
-                sfx.volume = 0.6;
-                sfx.play().catch(e => console.log("SFX bloqueado por el navegador hasta la interacción."));
+                sfx.currentTime = 0; sfx.volume = 0.6;
+                sfx.play().catch(e => {}); // Ignorar si navegador bloquea
             }
         }
 
@@ -346,23 +454,31 @@
             document.getElementById('start-screen').style.transform = 'translateY(-100vh)';
             document.getElementById('start-screen').style.opacity = '0';
             
+            // Solicitar permiso giroscopio en iOS moderno (requiere interacción usuario)
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') { devicePermissionGranted = true; }
+                    })
+                    .catch(console.error);
+            } else { devicePermissionGranted = true; /* Probablemente Android u otro */ }
+
             setTimeout(() => {
                 document.getElementById('start-screen').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 document.getElementById('music-control').style.display = 'block';
                 
-                // Animar XP y reproducir sonido de nivel
                 setTimeout(() => {
                     document.getElementById('xp-bar').style.width = '100%';
                     playSFX('sfx-levelup');
                 }, 500);
 
                 initScrollObserver();
-                initPokemonCards(); // Inicializar lógica 3D de las cartas
+                initPokemonCardsInteractions(); // Inicializar lógica PC y Móvil
             }, 800);
 
             bgMusic.volume = 0.4;
-            bgMusic.play().then(() => { musicPlaying = true; }).catch(e => console.log("Audio autoplay bloqueado."));
+            bgMusic.play().then(() => { musicPlaying = true; }).catch(e => {});
             createConfetti(50);
         }
 
@@ -395,55 +511,81 @@
                         
                         const textElement = entry.target.querySelector('.typewriter-text');
                         if (textElement && !textElement.classList.contains('typed')) {
-                            playSFX('sfx-magic'); // Sonido al revelar bloque
+                            playSFX('sfx-magic');
                             const text = textElement.getAttribute('data-text');
                             typeWriterEffect(textElement, text);
                             textElement.classList.add('typed');
                         }
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 });
 
             document.querySelectorAll('.observer-item').forEach(item => observer.observe(item));
         }
 
-        // --- LÓGICA 3D CARTAS POKÉMON ---
-        function initPokemonCards() {
+        // --- LÓGICA INTERACCIÓN CARTAS (PC + MÓVIL) ---
+        function initPokemonCardsInteractions() {
             const cards = document.querySelectorAll('.pokemon-card');
             
-            cards.forEach(card => {
-                const holo = card.querySelector('.holo-glare');
-                
-                card.addEventListener('mousemove', e => {
-                    // Capturar posición del cursor relativo a la carta
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    // Calcular centro y rotación
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    // Ajusta el multiplicador (15) para más o menos rotación
-                    const rotateX = ((y - centerY) / centerY) * -15; 
-                    const rotateY = ((x - centerX) / centerX) * 15;
-                    
-                    // Aplicar transformación
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                    
-                    // Efecto de brillo dinámico
-                    if(holo) {
-                        holo.style.opacity = '1';
-                        holo.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.4), transparent 50%)`;
-                    }
-                });
+            // Detectar si es móvil (táctil)
+            const isTouch = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
 
-                // Resetear al quitar el mouse
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                    if(holo) holo.style.opacity = '0';
+            // LÓGICA PC (Mouse Move)
+            if(!isTouch) {
+                cards.forEach(card => {
+                    const holo = card.querySelector('.holo-glare');
+                    card.addEventListener('mousemove', e => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = ((y - centerY) / centerY) * -15; // Inclinación Y
+                        const rotateY = ((x - centerX) / centerX) * 15; // Inclinación X
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                        
+                        if(holo) {
+                            holo.style.opacity = '1';
+                            holo.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.4), transparent 50%)`;
+                        }
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                        if(holo) holo.style.opacity = '0';
+                    });
                 });
-            });
+            }
+            
+            // LÓGICA MÓVIL (Giroscopio)
+            else if(window.DeviceOrientationEvent && devicePermissionGranted) {
+                window.addEventListener('deviceorientation', e => {
+                    // beta: inclinación adelante/atrás (-180 a 180) -> mapear a rotateX
+                    // gamma: inclinación izquierda/derecha (-90 a 90) -> mapear a rotateY
+                    let beta = e.beta; 
+                    let gamma = e.gamma; 
+
+                    // Normalizar y limitar inclinación para que no sea exagerada
+                    let rotX = Math.max(-15, Math.min(15, beta / 3)); 
+                    let rotY = Math.max(-15, Math.min(15, gamma / 3)); 
+
+                    cards.forEach(card => {
+                        const holo = card.querySelector('.holo-glare');
+                        // Aplicar rotación física
+                        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+                        
+                        // Brillo holográfico móvil basado en la inclinación física
+                        if(holo) {
+                            holo.style.opacity = '1';
+                            // Mover el punto de luz basado en la inclinación
+                            let opacityHolo = Math.max(0.1, Math.min(0.6, Math.abs(gamma)/45));
+                            holo.style.background = `linear-gradient(${105 + gamma}deg, transparent 40%, rgba(255,255,255,${opacityHolo}) 50%, transparent 60%)`;
+                        }
+                    });
+                });
+            }
         }
 
         function triggerSurprise() {
@@ -478,6 +620,7 @@
             }
         }
 
+        // Inyectar CSS extra para agitar pantalla
         const style = document.createElement('style');
         style.innerHTML = `@keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }`;
         document.head.appendChild(style);
